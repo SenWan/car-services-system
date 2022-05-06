@@ -7,13 +7,16 @@
 }
 
 .service-btn{
-    background-color: #F6F54D;
+    background-color: #FEB139;
     padding: 10px;
     width: 100%;
     border: none;
     margin-bottom: 0;
+    cursor: pointer;
+    color: white;
+    font-weight: 800;
 }
 
 .service-btn:hover{
-    background-color: #FEB139;
+    background-color: #fc9f0a;
 }
