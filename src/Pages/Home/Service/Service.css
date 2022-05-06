@@ -1,22 +1,7 @@
 .service{
     box-shadow: 5px 10px 8px #888888;;
     border-radius: 10px;
-    margin: 20px;
+    margin-top: 20px;
     padding-bottom: 10px;
     text-align: center;
-}
-
-.service-btn{
-    background-color: #FEB139;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    margin-bottom: 0;
-    cursor: pointer;
-    color: white;
-    font-weight: 800;
-}
-
-.service-btn:hover{
-    background-color: #fc9f0a;
 }
