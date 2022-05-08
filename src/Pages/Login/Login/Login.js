@@ -1,6 +1,7 @@
+import { async } from '@firebase/util';
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -20,6 +21,7 @@ const Login = () => {
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -35,14 +37,18 @@ const Login = () => {
 
   if(error) {
     errorElement = (
-      <div>
         <p className='text-danger'>Error: {error?.message}</p>
-      </div>
     );
   }
 
   const navigateRegister = event => {
     navigate('/register');
+  }
+
+  const resetPassword = async() => {
+    const email = emailRef.current.value;
+    await sendPasswordResetEmail(email);
+    alert('Sent Email')
   }
   return (
     <div className='container'>
@@ -55,15 +61,13 @@ const Login = () => {
         <Form.Group className="mb-2" controlId="formBasicPassword">
           <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
+        <Button variant="primary w-50 mx-auto d-block mb-2" type="submit">
+          Login
         </Button>
       </Form>
       {errorElement}
-      <p>Are you new user? <span  style={{cursor:'pointer'}} className='text-danger' onClick={navigateRegister}> Please Register !</span></p>
+      <p>Are you new user? <span  style={{cursor:'pointer'}} className='text-primary' onClick={navigateRegister}> Please Register !</span></p>
+      <p>forget password? <span  style={{cursor:'pointer'}} className='text-primary' onClick={resetPassword}> Reset Password !</span></p>
       <SocialLogin></SocialLogin>
     </div>
   );
